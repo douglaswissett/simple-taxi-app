@@ -2,7 +2,7 @@
 
 ## Installing the app
 
-1. `git clone git@github.com:douglaswissett/splyt-taxi-app.git`
+1. `git clone git@github.com:douglaswissett/simple-taxi-app.git`
 2. `cd splyt-taxi-app`
 3. `yarn`
 

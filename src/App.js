@@ -1,9 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import GoogleMapReact from 'google-map-react';
 import Slider from 'rc-slider/lib/Slider';
 import 'rc-slider/assets/index.css';
+import taxiPNG from './taxi.png'
+
+const TaxiMarker = ({ text }) => <img src={taxiPNG} style={{ width: 72, height: 64 }} alt='taxi-img' />;
 
 class App extends React.Component {
   state = {
@@ -37,7 +39,14 @@ class App extends React.Component {
           bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
-        />
+        >
+          <TaxiMarker
+            lat={51.5049375}
+            lng={-0.0964509}
+            text="My Marker"
+          />
+
+        </GoogleMapReact>
       </div>
     );
   }

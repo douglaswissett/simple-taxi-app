@@ -9,7 +9,8 @@ const TaxiMarker = ({ text }) => <img src={taxiPNG} style={{ width: 72, height: 
 
 class App extends React.Component {
   state = {
-    numberOfTaxis: 1,
+    numberOfTaxis: 30,
+    drivers: [],
   };
 
   static defaultProps = {
@@ -17,11 +18,31 @@ class App extends React.Component {
       lat: 51.5049375,
       lng: -0.0964509,
     },
-    zoom: 11,
+    zoom: 14,
 
   };
 
-  _handleSliderChange = number => this.setState({ numberOfTaxis: number });
+  componentDidMount() {
+    this._fetchTaxis(this.state.numberOfTaxis);
+  }
+
+  _fetchTaxis = numberOfTaxis => {
+    const url = `https://qa-interview-test.qa.splytech.io/api/drivers?latitude=${this.props.center.lat}&longitude=${this.props.center.lng}&count=${numberOfTaxis}`;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.drivers && Array.isArray(data.drivers)) {
+          this.setState({ drivers: data.drivers });
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
+  _handleSliderChange = number => {
+    this._fetchTaxis(number);
+    this.setState({ numberOfTaxis: number });
+  }
 
   render() {
     return (
@@ -40,12 +61,15 @@ class App extends React.Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          <TaxiMarker
-            lat={51.5049375}
-            lng={-0.0964509}
-            text="My Marker"
-          />
-
+          { this.state.drivers.map(taxi => {
+            return (
+              <TaxiMarker
+                key={taxi.driver_id}
+                lat={taxi.location.latitude}
+                lng={taxi.location.longitude}
+              />
+            );
+          })}
         </GoogleMapReact>
       </div>
     );

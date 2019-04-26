@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   _fetchTaxis = numberOfTaxis => {
-    const url = `https://qa-interview-test.qa.splytech.io/api/drivers?latitude=${this.props.center.lat}&longitude=${this.props.center.lng}&count=${numberOfTaxis}`;
+    const url = `${process.env.REACT_APP_BASE_URL}/api/drivers?latitude=${this.props.center.lat}&longitude=${this.props.center.lng}&count=${numberOfTaxis}`;
 
     fetch(url)
       .then(response => response.json())

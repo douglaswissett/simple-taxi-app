@@ -8,9 +8,11 @@
 
 ## Running the app
 
-2. Start the app using `yarn start`
-3. Open http://localhost:3000/ in Chrome browser (Disble CORS - https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome)
+1. Quit all Chrome browser windows
+2. Open a Chrome browser with CORS temporarily disabled for dev purposes `open -a Google\ Chrome --args --disable-web-security --user-data-dir`
+3. Start the app using `yarn start`, http://localhost:3000/ should open in a new tab
 
-# Tesing the app
+
+## Tesing the app
 
 run `yarn test`
